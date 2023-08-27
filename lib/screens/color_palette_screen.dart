@@ -1,24 +1,28 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../providers/color_schemes_provider.dart';
 
 const Widget _divider = SizedBox(height: 10);
 
 const double _narrowScreenWidthThreshold = 400;
 
-class ColorPalettesScreen extends StatelessWidget {
+class ColorPalettesScreen extends ConsumerWidget {
   const ColorPalettesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    Color selectedColor = Theme.of(context).primaryColor;
-    ThemeData lightTheme = ThemeData(
-      colorSchemeSeed: selectedColor,
-      brightness: Brightness.light,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colorSchemes = ref.watch(colorSchemesProvider).value;
+
+    final lightTheme = ThemeData(
+      useMaterial3: true,
+      colorScheme: colorSchemes?.light,
     );
-    ThemeData darkTheme = ThemeData(
-      colorSchemeSeed: selectedColor,
-      brightness: Brightness.dark,
+    final darkTheme = ThemeData(
+      useMaterial3: true,
+      colorScheme: colorSchemes?.dark,
     );
 
     Widget schemeLabel(String brightness) {
