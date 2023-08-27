@@ -26,12 +26,10 @@ class MyApp extends ConsumerWidget {
           themeMode: themeMode,
           theme: ThemeData(
             useMaterial3: true,
-            brightness: Brightness.light,
             colorScheme: lightScheme,
           ),
           darkTheme: ThemeData(
             useMaterial3: true,
-            brightness: Brightness.dark,
             colorScheme: darkScheme,
           ),
           debugShowCheckedModeBanner: false,

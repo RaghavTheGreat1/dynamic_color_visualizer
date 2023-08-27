@@ -3,12 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/theme_mode_provider.dart';
 import 'color_palette_screen.dart';
+import 'home_screen/widgets/image_picker_card.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -37,8 +38,14 @@ class HomeScreen extends StatelessWidget {
         children: [
           SizedBox(
             width: 256,
-            child: Column(
-              children: [],
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ImagePickerCard(),
+                ],
+              ),
             ),
           ),
           VerticalDivider(),
