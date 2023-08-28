@@ -13,10 +13,13 @@ class ColorPickerCard extends ConsumerWidget {
     final theme = Theme.of(context);
     return Column(
       children: [
-        Text(
-          "Color Picker",
-          style: theme.textTheme.titleMedium!.copyWith(
-            fontWeight: FontWeight.w600,
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "Color Picker",
+            style: theme.textTheme.titleMedium!.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
         Consumer(

@@ -36,23 +36,32 @@ class HomeScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: const Row(
+      body: Row(
         children: [
           SizedBox(
             width: 256,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  DynamicColorModeSelector(),
-                  ImagePickerCard(),
-                  ColorPickerCard(),
-                ],
+              padding: const EdgeInsets.all(8.0),
+              child: ScrollConfiguration(
+                behavior:
+                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                child: const SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      DynamicColorModeSelector(),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      ImagePickerCard(),
+                      ColorPickerCard(),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
-          VerticalDivider(),
-          ColorPalettesScreen(),
+          const VerticalDivider(),
+          const ColorPalettesScreen(),
         ],
       ),
     );
