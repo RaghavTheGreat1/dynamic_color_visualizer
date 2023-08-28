@@ -1,9 +1,11 @@
+import 'package:dynamic_color_visualizer/screens/home_screen/widgets/color_picker_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/theme_mode_provider.dart';
-import 'color_palette_screen.dart';
-import 'home_screen/widgets/image_picker_card.dart';
+import '../../providers/theme_mode_provider.dart';
+import '../color_palette_screen.dart';
+import 'widgets/dynamic_color.dart';
+import 'widgets/image_picker_card.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -41,9 +43,10 @@ class HomeScreen extends ConsumerWidget {
             child: Padding(
               padding: EdgeInsets.all(8.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  DynamicColorModeSelector(),
                   ImagePickerCard(),
+                  ColorPickerCard(),
                 ],
               ),
             ),

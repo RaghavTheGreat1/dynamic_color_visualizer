@@ -1,6 +1,6 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:dynamic_color_visualizer/providers/theme_mode_provider.dart';
-import 'package:dynamic_color_visualizer/screens/home_screen.dart';
+import 'package:dynamic_color_visualizer/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,7 +25,7 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     final themeMode = ref.watch(themeModeProvider);
-    final colorSchemes = ref.watch(colorSchemesProvider).value; 
+    final colorSchemes = ref.watch(colorSchemesProvider).value;
 
     return DynamicColorBuilder(
       builder: (lightScheme, darkScheme) {
@@ -37,7 +37,7 @@ class _MyAppState extends ConsumerState<MyApp> {
           useMaterial3: true,
           colorScheme: colorSchemes?.dark ?? darkScheme,
         );
-        print(colorSchemes?.light != null ? 't' : 'f');
+
         return MaterialApp(
           title: 'Dynamic Color Visualizer',
           themeMode: themeMode,

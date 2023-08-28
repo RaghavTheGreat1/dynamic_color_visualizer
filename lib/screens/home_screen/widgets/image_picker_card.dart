@@ -1,3 +1,4 @@
+import 'package:dynamic_color_visualizer/providers/dynamic_color_mode_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -33,6 +34,11 @@ class ImagePickerCard extends ConsumerWidget {
               borderRadius: BorderRadius.circular(12),
               onTap: () async {
                 await ref.read(pickerImageProvider.notifier).pickImage();
+                final image = ref.read(pickerImageProvider).value;
+                if (image != null) {
+                  ref.read(dynamicColorModeProvider.notifier).state =
+                      DynamicColorMode.image;
+                }
               },
               child: Container(
                 height: 128,
