@@ -17,6 +17,7 @@ class HomeScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Image(
           height: 24,
           image: AssetImage(
