@@ -17,7 +17,12 @@ class HomeScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dynamic Color Visualizer'),
+        title: const Image(
+          height: 24,
+          image: AssetImage(
+            "assets/icon/logo.png",
+          ),
+        ),
         leading: ResponsiveBuilder(
           mobile: (context) => IconButton(
             icon: const Icon(Icons.menu),
