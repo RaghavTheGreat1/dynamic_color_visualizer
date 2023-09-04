@@ -1,6 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:unicons/unicons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../providers/color_schemes_provider.dart';
@@ -325,7 +328,7 @@ class ColorGroup extends StatelessWidget {
   }
 }
 
-class ColorChip extends StatelessWidget {
+class ColorChip extends StatefulWidget {
   const ColorChip({
     super.key,
     required this.color,
@@ -348,22 +351,99 @@ class ColorChip extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final Color labelColor = onColor ?? contrastColor(color);
+  State<ColorChip> createState() => _ColorChipState();
+}
 
-    return Container(
-      color: color,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(
-                label,
-                style: TextStyle(color: labelColor),
+class _ColorChipState extends State<ColorChip> {
+  final ValueNotifier<bool> isMouseHovering = ValueNotifier(false);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final Color labelColor =
+        widget.onColor ?? ColorChip.contrastColor(widget.color);
+
+    return MouseRegion(
+      onEnter: (event) {
+        setState(() {
+          isMouseHovering.value = true;
+        });
+      },
+      onExit: (event) {
+        setState(() {
+          isMouseHovering.value = false;
+        });
+      },
+      child: GestureDetector(
+        onTap: () {
+          final colorValue = widget.color.value.toRadixString(16);
+          Clipboard.setData(ClipboardData(text: colorValue));
+
+          final messenger = ScaffoldMessenger.of(context);
+          messenger.clearSnackBars();
+          messenger.showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.white,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
               ),
+              width: 120,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 8,
+              ),
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    UniconsLine.check_circle,
+                    size: 18,
+                  ),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  Text(
+                    'Copied',
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                ],
+              ).animate().fadeIn().slideY(begin: 1),
             ),
-          ],
+          );
+        },
+        child: Container(
+          color: widget.color,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    widget.label,
+                    style: TextStyle(
+                      color: labelColor,
+                    ),
+                  ),
+                ),
+                ValueListenableBuilder(
+                  valueListenable: isMouseHovering,
+                  builder: (context, value, _) {
+                    return Visibility(
+                      visible: value,
+                      child: Text(
+                        widget.color.value.toRadixString(16),
+                        style: TextStyle(
+                          color: labelColor,
+                        ),
+                      ).animate().fadeIn().slideY(begin: 1),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

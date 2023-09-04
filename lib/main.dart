@@ -2,11 +2,14 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:dynamic_color_visualizer/providers/theme_mode_provider.dart';
 import 'package:dynamic_color_visualizer/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'providers/color_schemes_provider.dart';
 
 void main() {
+  Animate.restartOnHotReload = true;
+
   runApp(
     const ProviderScope(
       child: MyApp(),

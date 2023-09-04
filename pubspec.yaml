@@ -41,12 +41,15 @@ dependencies:
   file_picker: ^5.3.4
   flutter_spinkit: ^5.2.0
   flex_color_picker: ^3.3.0
+  flutter_animate: ^4.2.0+1
+  unicons: ^2.1.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   custom_lint:
   riverpod_lint: ^1.4.0
+  flutter_launcher_icons: ^0.13.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -96,3 +99,22 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    background_color: "#ffffff"
+    theme_color: "#ffffff"
+    image_path: "assets/icon/icon.png"
+  windows:
+    generate: true
+    icon_size: 48 # min:48, max:256, default: 48
+    image_path: "assets/icon/icon.png"
+  macos:
+    generate: true
+    icon_size: 24
+    background_color: "#ffffff"
+    image_path: "assets/icon/icon.png"
