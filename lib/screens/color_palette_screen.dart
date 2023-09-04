@@ -383,7 +383,7 @@ class _ColorChipState extends State<ColorChip> {
           messenger.clearSnackBars();
           messenger.showSnackBar(
             SnackBar(
-              backgroundColor: Colors.white,
+              backgroundColor: theme.colorScheme.background,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
@@ -397,16 +397,19 @@ class _ColorChipState extends State<ColorChip> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(
+                  Icon(
                     UniconsLine.check_circle,
                     size: 18,
+                    color: theme.colorScheme.onBackground,
                   ),
                   const SizedBox(
                     width: 4,
                   ),
                   Text(
                     'Copied',
-                    style: theme.textTheme.bodyMedium,
+                    style: theme.textTheme.bodyMedium!.copyWith(
+                      color: theme.colorScheme.onBackground,
+                    ),
                   ),
                 ],
               ).animate().fadeIn().slideY(begin: 1),
