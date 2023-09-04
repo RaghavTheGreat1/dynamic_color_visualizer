@@ -1,3 +1,4 @@
+import 'package:dynamic_color_visualizer/responsive/responsive_builder.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -434,14 +435,40 @@ class _ColorChipState extends State<ColorChip> {
                 ValueListenableBuilder(
                   valueListenable: isMouseHovering,
                   builder: (context, value, _) {
-                    return Visibility(
-                      visible: value,
-                      child: Text(
-                        "#${widget.color.hex}",
-                        style: TextStyle(
-                          color: labelColor,
-                        ),
-                      ).animate().fadeIn().slideY(begin: 1),
+                    return ResponsiveBuilder(
+                      mobile: (context) {
+                        return Visibility(
+                          visible: true,
+                          child: Text(
+                            "#${widget.color.hex}",
+                            style: TextStyle(
+                              color: labelColor,
+                            ),
+                          ).animate().fadeIn().slideY(begin: 1),
+                        );
+                      },
+                      tablet: (context) {
+                        return Visibility(
+                          visible: value,
+                          child: Text(
+                            "#${widget.color.hex}",
+                            style: TextStyle(
+                              color: labelColor,
+                            ),
+                          ).animate().fadeIn().slideY(begin: 1),
+                        );
+                      },
+                      desktop: (context) {
+                        return Visibility(
+                          visible: value,
+                          child: Text(
+                            "#${widget.color.hex}",
+                            style: TextStyle(
+                              color: labelColor,
+                            ),
+                          ).animate().fadeIn().slideY(begin: 1),
+                        );
+                      },
                     );
                   },
                 ),
