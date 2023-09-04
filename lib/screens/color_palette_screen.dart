@@ -1,3 +1,4 @@
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -376,7 +377,7 @@ class _ColorChipState extends State<ColorChip> {
       },
       child: GestureDetector(
         onTap: () {
-          final colorValue = widget.color.value.toRadixString(16);
+          final colorValue = widget.color.hex;
           Clipboard.setData(ClipboardData(text: colorValue));
 
           final messenger = ScaffoldMessenger.of(context);
@@ -436,7 +437,7 @@ class _ColorChipState extends State<ColorChip> {
                     return Visibility(
                       visible: value,
                       child: Text(
-                        widget.color.value.toRadixString(16),
+                        "#${widget.color.hex}",
                         style: TextStyle(
                           color: labelColor,
                         ),
