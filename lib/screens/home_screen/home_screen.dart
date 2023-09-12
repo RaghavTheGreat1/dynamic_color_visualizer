@@ -150,6 +150,9 @@ class _ColorConfiguration extends StatelessWidget {
               height: 16,
             ),
             ImagePickerCard(),
+            SizedBox(
+              height: 16,
+            ),
             ColorPickerCard(),
           ],
         ),
