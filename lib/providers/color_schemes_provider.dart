@@ -1,3 +1,4 @@
+import 'package:dynamic_color_visualizer/providers/dynamic_scheme_variant_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,6 +8,7 @@ import 'picker_image_provider.dart';
 
 final colorSchemesProvider =
     FutureProvider<({ColorScheme? light, ColorScheme? dark})>((ref) {
+  final dynamicSchemeVariant = ref.watch(dynamicSchemeVariantProvider);
   final image = ref.watch(pickerImageProvider).value;
   final mode = ref.watch(dynamicColorModeProvider);
   if (image != null && mode == DynamicColorMode.image) {
@@ -22,10 +24,12 @@ final colorSchemesProvider =
     final light = ColorScheme.fromSeed(
       seedColor: color,
       brightness: Brightness.light,
+      dynamicSchemeVariant: dynamicSchemeVariant,
     );
     final dark = ColorScheme.fromSeed(
       seedColor: color,
       brightness: Brightness.dark,
+      dynamicSchemeVariant: dynamicSchemeVariant,
     );
     return (light: light, dark: dark);
   }
@@ -35,13 +39,17 @@ final colorSchemesProvider =
 final colorSchemeProvider =
     FutureProvider.family<({ColorScheme light, ColorScheme dark}), Image>(
         (ref, image) async {
+  final dynamicSchemeVariant = ref.watch(dynamicSchemeVariantProvider);
+
   final light = await ColorScheme.fromImageProvider(
     provider: image.image,
     brightness: Brightness.light,
+    dynamicSchemeVariant: dynamicSchemeVariant,
   );
   final dark = await ColorScheme.fromImageProvider(
     provider: image.image,
     brightness: Brightness.dark,
+    dynamicSchemeVariant: dynamicSchemeVariant,
   );
 
   return (light: light, dark: dark);

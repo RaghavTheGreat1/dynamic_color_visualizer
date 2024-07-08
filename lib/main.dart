@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'providers/color_schemes_provider.dart';
-
 void main() {
   Animate.restartOnHotReload = true;
 
@@ -18,7 +16,7 @@ void main() {
 }
 
 class MyApp extends ConsumerStatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   ConsumerState<MyApp> createState() => _MyAppState();
@@ -28,17 +26,15 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     final themeMode = ref.watch(themeModeProvider);
-    final colorSchemes = ref.watch(colorSchemesProvider).value;
 
     return DynamicColorBuilder(
       builder: (lightScheme, darkScheme) {
         final lightTheme = ThemeData(
           useMaterial3: true,
-          colorScheme: colorSchemes?.light ?? lightScheme,
         );
         final darkTheme = ThemeData(
           useMaterial3: true,
-          colorScheme: colorSchemes?.dark ?? darkScheme,
+          brightness: Brightness.dark,
         );
 
         return MaterialApp(

@@ -1,7 +1,10 @@
+import 'package:dynamic_color_visualizer/providers/dynamic_scheme_variant_provider.dart';
 import 'package:dynamic_color_visualizer/responsive/responsive_builder.dart';
 import 'package:dynamic_color_visualizer/screens/home_screen/widgets/color_picker_card.dart';
+import 'package:dynamic_color_visualizer/screens/home_screen/widgets/dynamic_scheme_variant_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:unicons/unicons.dart';
 
 import '../../providers/theme_mode_provider.dart';
@@ -14,7 +17,6 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -33,6 +35,18 @@ class HomeScreen extends ConsumerWidget {
           ),
         ),
         actions: [
+          Consumer(
+            builder: (context, ref, child) {
+              final variant = ref.watch(dynamicSchemeVariantProvider);
+              return DynamicSchemeVariantPicker(
+                initialVariant: variant,
+                onVariantChanged: (value) {
+                  ref.read(dynamicSchemeVariantProvider.notifier).state = value;
+                },
+              );
+            },
+          ),
+          const Gap(16),
           ResponsiveBuilder(
             desktop: (context) {
               return const _DarkModeSwitch();
@@ -41,6 +55,7 @@ class HomeScreen extends ConsumerWidget {
               return const _DarkModeSwitch();
             },
           ),
+          const Gap(16),
         ],
       ),
       drawer: ResponsiveBuilder(
